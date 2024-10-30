@@ -86,10 +86,23 @@ Xây dựng ứng dụng web động kết nối với cơ sở dữ liệu Post
 - Tìm kiếm `blogs` theo từ khóa trong title, summary, hoặc description
 
 **5. CRUD-Exercise**  
-Xây dựng ứng dụng web quản lý tài khoản người dùng với các chức năng chính:
+Xây dựng một ứng dụng web quản lý tài khoản người dùng với các chức năng chính:
 
 - Thêm người dùng mới
 - Cập nhật thông tin người dùng
 - Xóa người dùng
 - Tìm kiếm người dùng
 - Phân trang danh sách người dùng
+
+**6. Authenticate-Exercise**
+Xây dựng một ứng dụng web có các chức năng chính:
+
+- Đăng ký tài khoản
+- Đăng nhập
+- Nhớ mật khẩu sau khi đăng nhập thành công
+- Đăng xuất
+- Phân quyền chỉ cho phép người dùng xem dashboard và thông tin tài khoản khi đã đăng nhập
+  Các chức năng khác:
+- Cập nhật thông tin tài khoản, cho phép upload hình đại diện
+- Thay đổi mật khẩu
+- Quên mật khẩu (gửi qua email)
