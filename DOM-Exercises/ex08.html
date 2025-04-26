@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS v5.3.3 -->
-    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
     <script src="script.js" defer></script>
 </head>
 
@@ -20,7 +20,7 @@
     <main>
         <h1 class="text-center py-3">Ex08 - Edit Item</h1>
         <div class="container">
-            <form action="#" method="post">
+            <form action="#" method="post" onsubmit="updateItem(event)">
                 <div class="mb-3">
                     <label for="keyword" class="form-label">Item</label>
                     <input type="text" class="form-control" name="keyword" id="keyword" aria-describedby="helpId"
@@ -47,7 +47,28 @@
         <!-- place footer here -->
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">
+    </script>
+    <script>
+        const items = document.querySelectorAll(".list-group-item");
+        const keyword = document.getElementById("keyword")
+
+        document.querySelectorAll(".bi-pencil-fill").forEach(item => {
+            item.addEventListener('click', () => {
+                let itemText = item.parentElement.innerText.trim();
+                keyword.value = itemText;
+                items.forEach(i => {
+                    i.classList.remove('active');
+                })
+                item.parentElement.classList.add('active');
+            })
+        });
+
+        function updateItem(e) {
+            e.preventDefault();
+            let itemText = document.getElementById("keyword").value;
+            document.querySelector('.active').firstChild.textContent = itemText;
+        }
     </script>
 
 </body>

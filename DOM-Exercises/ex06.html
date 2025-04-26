@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS v5.3.3 -->
-    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script src="script.js" defer></script>
 </head>
 
@@ -20,7 +20,7 @@
     <main>
         <h1 class="text-center py-3">Ex06 - Add Item</h1>
         <div class="container">
-            <form action="#" method="post">
+            <form action="#" method="post" onsubmit="addItem(event)">
                 <div class="mb-3">
                     <label for="keyword" class="form-label">Item</label>
                     <input type="text" class="form-control" name="keyword" id="keyword" aria-describedby="helpId"
@@ -38,7 +38,21 @@
         <!-- place footer here -->
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">
+    </script>
+    <script>
+        function addItem(e) {
+            e.preventDefault();
+            let keyword = document.getElementById("keyword").value;
+            let ul = document.getElementById("myList");
+            let li = document.createElement("li");
+            li.className = 'list-group-item';
+            li.innerText = keyword;
+            ul.appendChild(li);
+            // ul.insertBefore(li);
+            // ul.innerHTML = `<li class="list-group-item">${keyword}</li>` + ul.innerHTML;
+        }
+
     </script>
 </body>
 

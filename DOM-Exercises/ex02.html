@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS v5.3.3 -->
-    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script src="script.js" defer></script>
 </head>
 
@@ -51,7 +51,19 @@
         <!-- place footer here -->
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">
+    </script>
+    <script>
+        const icons = document.querySelectorAll("img")
+        icons.forEach(icon => {
+            icon.addEventListener('mouseover', () => {
+                icon.src = icon.src.replace('.png', '-active.png');
+            });
+            icon.addEventListener('mouseout', () => {
+                icon.src = icon.src.replace('-active.png', '.png');
+            });
+        });
+
     </script>
 
 </body>

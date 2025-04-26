@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS v5.3.3 -->
-    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script src="script.js" defer></script>
 </head>
 
@@ -18,8 +18,8 @@
     <main>
         <h1 class="text-center py-3">Ex03 - Check / Uncheck All</h1>
         <div class="container justify-content-center">
-            <button class="btn btn-primary">Check All</button>
-            <button class="btn btn-primary">UnCheck All</button>
+            <button class="btn btn-primary" onclick="checkAll(true)">Check All</button>
+            <button class="btn btn-primary" onclick="checkAll(false)">UnCheck All</button>
             <div class="list-group my-3">
                 <label class="list-group-item">
                     <input class="form-check-input me-1" type="checkbox" name="checkbox" value="">
@@ -48,7 +48,15 @@
         <!-- place footer here -->
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">
+    </script>
+    <script>
+        function checkAll(checked=true) {
+            const checkboxes = document.querySelectorAll("input[type='checkbox']")
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = checked;
+            });
+        }
     </script>
 </body>
 

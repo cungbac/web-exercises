@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS v5.3.3 -->
-    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script src="script.js" defer></script>
 </head>
 
@@ -44,9 +44,23 @@
         <!-- place footer here -->
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">
     </script>
+    <script>
+        const keyword = document.getElementById("keyword");
+        const list = document.querySelectorAll(".list-group-item:not(.list-group-item-action)");
 
+        keyword.addEventListener('input', () => {
+            const value = keyword.value;
+            list.forEach(item => {
+                if (item.textContent.includes(value)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                };
+            });
+        });
+    </script>
 </body>
 
 </html>
