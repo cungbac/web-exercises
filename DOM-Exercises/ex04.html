@@ -45,6 +45,53 @@
     <!-- Bootstrap JavaScript Libraries -->
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">
     </script>
+    <script>
+        const password = document.getElementById("password");
+        const confirmPassword = document.getElementById("confirmPassword");
+        const showPassword = document.getElementById("showPassword");
+
+        const showPasswordHandler = () => {
+            if (showPassword.checked) {
+                password.type = 'text';
+                confirmPassword.type = 'text';
+            } else {
+                password.type = 'password';
+                confirmPassword.type = 'password';
+            };
+        }
+        showPassword.addEventListener('change', showPasswordHandler);
+
+        // const validatePassword = (event) => {
+        //     if (password.value !== confirmPassword.value) {
+        //         event.preventDefault();
+        //         confirmPassword.setCustomValidity('Password does not match!');
+        //         confirmPassword.reportValidity();
+        //     } else {
+        //         confirmPassword.setCustomValidity('');
+        //     }
+        // };
+
+        function validatePassword(event) {
+            if (password.value !== confirmPassword.value) {
+                event.preventDefault();
+                confirmPassword.setCustomValidity("Password does not match!");
+                confirmPassword.reportValidity();
+            } else {
+                confirmPassword.setCustomValidity('');
+            }
+        }
+
+        password.addEventListener('change', () => {
+            if (password.value !== confirmPassword.value) {
+                event.preventDefault();
+                confirmPassword.setCustomValidity("Password does not match!");
+                confirmPassword.reportValidity();
+            } else {
+                confirmPassword.setCustomValidity('');
+            }
+        });
+        confirmPassword.addEventListener('input', validatePassword);
+    </script>
 
 </body>
 

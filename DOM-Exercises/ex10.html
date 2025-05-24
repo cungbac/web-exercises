@@ -20,10 +20,32 @@
     <main>
         <h1 class="text-center py-3">Ex10 - Fetch Data from reqres.in</h1>
         <div class="container">
-            <button class="btn btn-primary">Fetch Data</button>
+            <button class="btn btn-primary" onclick="showData(2)">Fetch Data</button>
             <ul class="list-group py-3" id="myList">
                 <li class="list-group-item" style="color: green">name - year</li>
             </ul>
+
+            <nav aria-label="Page navigation" id="pagination">
+                <ul class="pagination">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </main>
     <footer>
@@ -32,6 +54,95 @@
 
     <!-- Bootstrap JavaScript Libraries -->
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">
+    </script>
+    <script src="./node_modules/handlebars/dist/handlebars.min.js"></script>
+    <script src="./js/handlebars-pagination-helper.js"></script>
+
+    <script id="template" type="text/x-handlebars-template">
+        {{#each data}}
+        <li class="list-group-item" style="color: {{color}};">{{name}} - {{year}}</li>
+        {{/each}}
+    </script>
+
+    <script id="pagination-template" type="text/x-handlebars-template">
+        {{#pagination currentPage pageCount size}}
+        <ul class="pagination">
+            {{#unless startFromFirstPage}}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" aria-label="Previous" onclick="showData({{currentPage}} - 1)">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {{/unless}}
+
+            {{#each pages}}
+            {{#if isCurrent}}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="#" onclick="showData({{page}})">{{page}} &amp; &lt; &gt; &quot;</a>
+            </li>
+            {{/if}}
+            {{#unless isCurrent}}
+            <li class="page-item">
+                <a class="page-link" href="#" onclick="showData({{page}})">{{page}}</a>
+            </li>
+            {{/ unless}}
+            {{/ each}}
+
+            {{#unless endAtLastPage}}
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next" onclick="showData({{currentPage}} + 1)">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {{/ unless}}
+        </ul>
+        {{/pagination }}
+    </script>
+
+    <!-- <script>
+        async function showData() {
+            const response = await fetch('https://reqres.in/api/unknown', {
+                method: "GET",
+                headers: {
+                    "x-api-key": "reqres-free-v1"
+                }
+            });
+            const data = await response.json();
+            console.log(data);
+
+            let myList = document.getElementById("myList");
+            data.data.forEach(item => {
+                let li = document.createElement("li");
+                li.className = "list-group-item";
+                li.textContent = `${item.name} - ${item.year}`;
+                li.style.color = item.color;
+                myList.appendChild(li);
+            });
+        }
+    </script> -->
+
+    <script>
+        async function showData(page = 1) {
+            const response = await fetch(`https://reqres.in/api/unknown?page=${page}`, {
+                method: "GET",
+                headers: {
+                    "x-api-key": "reqres-free-v1"
+                }
+            });
+            const data = await response.json();
+            let myList = document.getElementById("myList");
+            myList.innerHTML = '';
+
+            let source = document.getElementById("template").innerHTML;
+            let template = Handlebars.compile(source);
+            let html = template({ data: data.data });
+            myList.innerHTML = html;
+
+            let paginationSource = document.getElementById("pagination-template").innerHTML;
+            let paginationTemplate = Handlebars.compile(paginationSource);
+            let paginationHtml = paginationTemplate({ currentPage: page, pageCount: data.total_pages, size: 2 });
+            document.getElementById("pagination").innerHTML = paginationHtml;
+        }
     </script>
 </body>
 

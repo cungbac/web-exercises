@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS v5.3.3 -->
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
-    <script src="script.js" defer></script>
+    <script src="./script.js" defer></script>
 
 </head>
 
@@ -41,6 +41,53 @@
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">
+    </script>
+    <script>
+        function addItem(e) {
+            e.preventDefault();
+            let keyword = document.getElementById("keyword").value;
+            let ul = document.getElementById("myList");
+            let li = document.createElement("li");
+            li.className = "list-group-item";
+            li.innerHTML = keyword + ' <i class="bi bi-trash-fill float-end text-danger" onclick="removeItem(this)"></i>';
+            ul.insertBefore(li, ul.firstChild);
+            document.getElementById("keyword").value = '';
+            saveItems();
+        }
+        function removeItem(element) {
+            if (confirm("Are you sure?")) {
+                return;
+            }
+            let li = element.parentElement;
+            li.remove();
+            saveItems();
+        }
+        function clearItems() {
+            let ul = document.getElementById("myList");
+            ul.innerHTML = '';
+            localStorage.removeItem('items');
+        }
+        function saveItems() {
+            let ul = document.getElementById("myList");
+            let items = [];
+            for (let i = 0; i < ul.children.length; i++) {
+                items.push(ul.children[i].innerText);
+            }
+            localStorage.setItem('items', JSON.stringify(items));
+        }
+        function loadItems() {
+            let items = JSON.parse(localStorage.getItem('items'));
+            if (items) {
+                let ul = document.getElementById("myList");
+                for (let i = 0; i < items.length; i++) {
+                    let li = document.createElement("li");
+                    li.className = "list-group-item"
+                    li.innerHTML = items[i] + ' <i class="bi bi-trash-fill float-end text-danger" onclick="removeItem(this)"></i>';
+                    ul.insertBefore(li, ul.firstChild);
+                }
+            }
+        }
+        loadItems();
     </script>
 </body>
 
